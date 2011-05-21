@@ -5,9 +5,11 @@ require 'env'
 Env.setup
 
 require 'models/tag'
+require 'models/span'
 
 labels = ARGV
 
-labels.each do |label|
+tags = labels.map do |label|
   Tag.find_or_create_by_label(label);
 end
+span = Span.create(:tags => tags, :end_time => Time.now, :start_time => 10.minutes.ago)
