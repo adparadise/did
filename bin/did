@@ -2,4 +2,12 @@
 
 $: << File.dirname(__FILE__) + "/../lib"
 require 'env'
+Env.setup
 
+require 'models/tag'
+
+labels = ARGV
+
+labels.each do |label|
+  Tag.find_or_create_by_label(label);
+end
