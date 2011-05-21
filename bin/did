@@ -4,7 +4,7 @@ $: << File.dirname(__FILE__) + "/../lib"
 require 'env'
 Env.setup
 
-require 'submission_parser'
+require 'action'
 
-submission = SubmissionParser.parse(ARGV)
-submission.submit
+action = Action.parse(ARGV)
+action.perform

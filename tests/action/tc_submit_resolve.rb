@@ -1,16 +1,16 @@
 require 'test/unit'
-$: << File.dirname(__FILE__) + "/.."
+$: << File.dirname(__FILE__) + "/../.."
 require 'tests/setup'
 
-require 'submission'
+require 'action/submit'
 
-class TCSubmissionResolve < Test::Unit::TestCase
+class TCSubmitResolve < Test::Unit::TestCase
   def test_start_time_within_sitting
     start_time = Time.local(2011,05,20, 10,00,00)
     end_time = start_time + 10.minutes
     sitting = Sitting.create(:start_time => start_time, :end_time => end_time)
     
-    submission = Submission.new
+    submission = Action::Submit.new
     submission.start_time = start_time + 5.minutes
     submission.resolve
     
@@ -19,7 +19,7 @@ class TCSubmissionResolve < Test::Unit::TestCase
 
   def test_start_time_outside_of_sitting
     start_time = Time.local(2011,05,04, 10,00,00)
-    submission = Submission.new
+    submission = Action::Submit.new
     submission.start_time = start_time
     submission.resolve
     

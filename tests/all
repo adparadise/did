@@ -1,11 +1,18 @@
 #!/usr/bin/env ruby
 
 require 'pathname'
-tests_home = Pathname.new(__FILE__).dirname
 
-
-tests_home.each_entry do |entry|
-  next unless entry.to_s=~ /^tc_.+\.rb$/
-  
-  load tests_home + entry
+def include_directory(dir) 
+  dir.each_entry do |entry|
+    next if entry.to_s=~ /^\./
+    if (dir + entry).directory?
+      include_directory(dir + entry)      
+      next
+    end
+    next unless entry.to_s=~ /^tc_.+\.rb$/
+    
+    load dir + entry
+  end
 end
+
+include_directory(Pathname.new(__FILE__).dirname)
