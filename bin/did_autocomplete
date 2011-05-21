@@ -9,7 +9,7 @@ USE_ACTIVE_RECORD = false
 if (USE_ACTIVE_RECORD) 
   require 'env'
   Env.setup
-  require 'models/tag'
+  require 'tag'
 
   tags = Tag.find(:all, :conditions => ["label like ?", partial + "%"])
   tags.each do |tag|

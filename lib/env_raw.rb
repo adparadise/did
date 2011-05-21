@@ -5,6 +5,8 @@ require 'sqlite3'
 
 $: << File.dirname(__FILE__)
 
+ENVIRONMENT_NAME = 'development' unless defined?(ENVIRONMENT_NAME)
+
 class Env
   def self.database_config(environment_name)
     database_config_path = 'db/config.yml'
@@ -21,7 +23,7 @@ class Env
   end
 
   def self.db
-    config = database_config('development')
+    config = database_config(ENVIRONMENT_NAME)
     db_filename = config["database"]
     raise "file not found: #{db_filename}" unless File.exist?(db_filename)
     SQLite3::Database.new(db_filename)
