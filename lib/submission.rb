@@ -1,5 +1,6 @@
 require 'tag'
 require 'span'
+require 'sitting'
 
 class Submission
   attr_accessor :labels
@@ -11,6 +12,11 @@ class Submission
   end
 
   def resolve
+    @sitting = Sitting.find_covering_time(start_time)
+    if @sitting
+      @start_time = @sitting.end_time + 1.second
+    end
+
     @resolved = true
   end
 
@@ -21,8 +27,15 @@ class Submission
       Tag.find_or_create_by_label(label);
     end
 
+    if @sitting
+      @sitting.update_attributes(:end_time => @end_time)
+    else
+      @sitting = Sitting.create(:start_time => @start_time, :end_time => @end_time)
+    end
+
     span = Span.create(:tags => tags, 
-                       :end_time => end_time, 
-                       :start_time => start_time)
+                       :sitting_id => @sitting.id,
+                       :end_time => @end_time, 
+                       :start_time => @start_time)
   end
 end

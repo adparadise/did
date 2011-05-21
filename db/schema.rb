@@ -10,11 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110521021941) do
+ActiveRecord::Schema.define(:version => 20110521134514) do
+
+  create_table "sittings", :force => true do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+  end
 
   create_table "spans", :force => true do |t|
     t.datetime "start_time"
     t.datetime "end_time"
+    t.integer  "sitting_id"
   end
 
   create_table "spans_tags", :id => false, :force => true do |t|

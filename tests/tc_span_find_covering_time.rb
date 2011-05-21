@@ -4,7 +4,7 @@ require 'tests/setup'
 
 require 'span'
 
-class SpanFindCoveringTimeTests < Test::Unit::TestCase
+class TCSpanFindCoveringTime < Test::Unit::TestCase
   def setup
     @start_time = Time.local(2011, 05, 21, 11, 00, 00)
     @end_time = @start_time + 10.minutes
