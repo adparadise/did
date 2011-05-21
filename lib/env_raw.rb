@@ -17,6 +17,13 @@ class Env
   end
 
   def self.setup
+    
+  end
+
+  def self.db
     config = database_config('development')
+    db_filename = config["database"]
+    raise "file not found: #{db_filename}" unless File.exist?(db_filename)
+    SQLite3::Database.new(db_filename)
   end
 end
