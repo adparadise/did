@@ -16,6 +16,8 @@ module Action
       @sitting = Sitting.find_covering_time(start_time)
       if @sitting
         @start_time = @sitting.end_time + 1.second
+      else
+        @sitting = Sitting.find_current
       end
 
       @resolved = true
@@ -29,7 +31,7 @@ module Action
       end
 
       if @sitting
-        @sitting.update_attributes(:end_time => @end_time)
+        @sitting.update_attributes(:end_time => @end_time, :current => false)
       else
         @sitting = Sitting.create(:start_time => @start_time, :end_time => @end_time)
       end
