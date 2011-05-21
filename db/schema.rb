@@ -10,12 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110521153703) do
+ActiveRecord::Schema.define(:version => 20110521174213) do
 
   create_table "sittings", :force => true do |t|
     t.datetime "start_time"
     t.datetime "end_time"
     t.boolean  "current"
+    t.integer  "end_span_id"
   end
 
   add_index "sittings", ["current"], :name => "index_sittings_on_current"
@@ -24,6 +25,8 @@ ActiveRecord::Schema.define(:version => 20110521153703) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "sitting_id"
+    t.boolean  "sitting_start"
+    t.boolean  "sitting_end"
   end
 
   create_table "spans_tags", :id => false, :force => true do |t|
