@@ -6,10 +6,7 @@ Env.setup
 
 require 'models/tag'
 require 'models/span'
+require 'submission_parser'
 
-labels = ARGV
-
-tags = labels.map do |label|
-  Tag.find_or_create_by_label(label);
-end
-span = Span.create(:tags => tags, :end_time => Time.now, :start_time => 10.minutes.ago)
+submission = SubmissionParser.parse(ARGV)
+submission.submit
