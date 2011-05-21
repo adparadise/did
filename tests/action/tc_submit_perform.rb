@@ -2,7 +2,7 @@ require 'test/unit'
 $: << File.dirname(__FILE__) + "/../.."
 require 'tests/setup'
 
-require 'action/start_sitting'
+require 'action/sit'
 require 'action/submit'
 
 class TCSubmitPerform < Test::Unit::TestCase
@@ -26,7 +26,7 @@ class TCSubmitPerform < Test::Unit::TestCase
     perform_action(:submit, :labels => ["test"],
                    :start_time => start_time, :end_time => end_time)
     
-    perform_action(:start_sitting, :start_time => end_time + 2.minutes)
+    perform_action(:sit, :start_time => end_time + 2.minutes)
 
     perform_action(:submit, :labels => ["test"],
                    :start_time => start_time + 4.minutes, :end_time => end_time + 4.minutes)
@@ -93,7 +93,7 @@ class TCSubmitPerform < Test::Unit::TestCase
     start_time = Time.local(2011,05,20, 10,00,00)
     end_time = start_time + 15.minutes
 
-    perform_action(:start_sitting, :start_time => start_time)
+    perform_action(:sit, :start_time => start_time)
     perform_action(:submit, :labels => ["test"], 
                    :start_time => start_time + 5.minutes, :end_time => end_time)
 

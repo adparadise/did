@@ -1,11 +1,11 @@
+require 'action/sit'
 require 'action/submit'
-require 'action/start_sitting'
 require 'action/report'
 
 module Action
   def self.parse(argv)
     if argv == ["sit"]
-      parse_start_sitting(argv)
+      parse_sit(argv)
     elsif argv[0] == "what?"
       parse_report(argv)
     else
@@ -15,11 +15,11 @@ module Action
 
   private
 
-  def self.parse_start_sitting(argv)
-    start_sitting = StartSitting.new
-    start_sitting.start_time = Time.now
+  def self.parse_sit(argv)
+    sit = Sit.new
+    sit.start_time = Time.now
 
-    start_sitting
+    sit
   end
 
   def self.parse_submit(argv)

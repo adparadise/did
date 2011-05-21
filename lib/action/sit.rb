@@ -1,7 +1,7 @@
 require 'sitting'
 
 module Action
-  class StartSitting
+  class Sit
     attr_accessor :start_time
 
     def perform
