@@ -1,14 +1,14 @@
 #!/usr/bin/env ruby
 
 $: << File.dirname(__FILE__) + "/../lib"
+require 'env'
 
 command, partial, prior = ARGV[0..2]
 
 USE_ACTIVE_RECORD = false
 
 if (USE_ACTIVE_RECORD) 
-  require 'env'
-  Env.setup
+  Env.setup_active_record(false)
   require 'tag'
 
   tags = Tag.find(:all, :conditions => ["label like ?", partial + "%"])
@@ -16,10 +16,9 @@ if (USE_ACTIVE_RECORD)
     puts tag.label
   end
 else
-  require 'env_raw'
-  Env.setup
-  db = Env.db
-  db.execute("select label from tags where label like ?", partial + "%") do |row|
+  Env.setup_raw(false)
+  exit if Env.db.nil?
+  Env.db.execute("select label from tags where label like ?", partial + "%") do |row|
     puts row[0]
   end
 end

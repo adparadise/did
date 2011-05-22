@@ -3,7 +3,7 @@ source :rubygems
 gem "activerecord"
 gem "sqlite3"
 
-group :development
+group :development do
   gem "standalone_migrations"
 end
 
