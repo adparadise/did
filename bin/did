@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-DID_PROFILE = ENV['DID_PROFILE'] || 'default'
+ALLOW_CREATE = true
 
 require 'did'
 

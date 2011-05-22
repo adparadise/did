@@ -1,26 +1,12 @@
 #!/usr/bin/env ruby
 
-DID_PROFILE = ENV['DID_PROFILE'] || 'default'
+ALLOW_CREATE = false
 
-require 'did/env'
+require 'did'
 
+exit unless $env.database_file_exist?
 command, partial, prior = ARGV[0..2]
-
-USE_ACTIVE_RECORD = false
-
-if (USE_ACTIVE_RECORD) 
-  Env.setup_active_record(DID_PROFILE, false)
-  require 'tag'
-
-  tags = Tag.find(:all, :conditions => ["label like ?", partial + "%"])
-  tags.each do |tag|
-    puts tag.label
-  end
-else
-  Env.setup_raw(DID_PROFILE, false)
-  db = Env.db(DID_PROFILE)
-  exit if db.nil?
-  db.execute("select label from tags where label like ?", partial + "%") do |row|
-    puts row[0]
-  end
+tags = Did::Tag.find(:all, :conditions => ["label like ?", partial + "%"])
+tags.each do |tag|
+  puts tag.label
 end
