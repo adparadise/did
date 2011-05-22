@@ -1,0 +1,20 @@
+
+commit 1caeb0888f47233b665aa0aa7adfa3547fedfb6c
+Author: adp-drosera <adparadise@gmail.com>
+Date:   Sun May 22 17:08:54 2011 -0400
+
+    include output generation in perf_tools utility
+
+132 actions (50 words, 10:1 span:sit) - 85.246131264 0.6458040247272727 per action
+
+setwise tag create_or_update
+132 actions (50 words, 10:1 span:sit) - 84.143301609 0.6374492546136364 per action
+
+skip tag create_or_update
+132 actions (50 words, 10:1 span:sit) - 76.243241354 0.5776003132878789 per action
+
+skip sitting patchups
+132 actions (50 words, 10:1 span:sit) - 29.043380001 0.2200256060681818 per action
+
+mysql instead of sqlite3
+132 actions (50 words, 10:1 span:sit) - 38.266594325 0.2898984418560606 per action
