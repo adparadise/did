@@ -19,4 +19,6 @@ EOT
   lib_files = Dir.glob("lib/**/*")
   tests_files = Dir.glob("tests/**/*")
   s.files = db_files + lib_files + tests_files
+  
+  s.require_path = 'lib'
 end

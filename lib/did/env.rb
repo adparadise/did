@@ -1,6 +1,3 @@
-require 'rubygems'
-require 'bundler'
-Bundler.setup
 require 'active_record'
 require 'pathname'
 require 'sqlite3'
@@ -61,7 +58,11 @@ class Env
     
     config
   end
+end
 
-
-
+unless defined?(ENVIRONMENT_NAME)
+  # production environment
+  Env.setup_active_record(DID_PROFILE)
+else
+  Env.setup_development(ENVIRONMENT_NAME)
 end

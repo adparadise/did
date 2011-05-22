@@ -2,10 +2,7 @@
 
 DID_PROFILE = ENV['DID_PROFILE'] || 'default'
 
-require 'did/env'
-Env.setup_active_record(DID_PROFILE)
-
-require 'did/action'
+require 'did'
 
 action = Did::Action.parse(ARGV)
 action.perform
