@@ -2,8 +2,8 @@ require 'test/unit'
 $: << File.dirname(__FILE__) + "/../.."
 require 'tests/setup'
 
-require 'action/sit'
-require 'action/submit'
+require 'did/action/sit'
+require 'did/action/submit'
 
 class TCSitPerform < Test::Unit::TestCase
 
@@ -13,8 +13,8 @@ class TCSitPerform < Test::Unit::TestCase
                    :start_time => start_time, 
                    :end_time   => start_time + 10.minutes)
 
-    spans = Span.find(:all, :order => :start_time)
-    sittings = Sitting.find(:all, :order => :start_time)
+    spans = Did::Span.find(:all, :order => :start_time)
+    sittings = Did::Sitting.find(:all, :order => :start_time)
 
     assert_equal(1, spans.length,                               "Should be one span")
     assert_equal(1, sittings.length,                            "Should be one sitting")
@@ -34,8 +34,8 @@ class TCSitPerform < Test::Unit::TestCase
                    :start_time => start_time + 40.minutes,
                    :end_time   => start_time + 50.minutes)
 
-    spans = Span.find(:all, :order => :start_time)
-    sittings = Sitting.find(:all, :order => :start_time)
+    spans = Did::Span.find(:all, :order => :start_time)
+    sittings = Did::Sitting.find(:all, :order => :start_time)
 
     assert_equal(2, sittings.length,                            "Should be two sittings")
     assert_equal(sittings[0], spans[0].sitting,                 "Should match first span to first sitting")
@@ -56,8 +56,8 @@ class TCSitPerform < Test::Unit::TestCase
                    :start_time => start_time + 5.minutes,
                    :end_time   => start_time + 15.minutes)
 
-    spans = Span.find(:all, :order => :start_time)
-    sittings = Sitting.find(:all, :order => :start_time)
+    spans = Did::Span.find(:all, :order => :start_time)
+    sittings = Did::Sitting.find(:all, :order => :start_time)
 
     assert_equal(1, sittings.length,                            "Should be one sitting")
     assert_equal(sittings[0], spans[0].sitting,                 "Should match first span to first sitting")
@@ -75,8 +75,8 @@ class TCSitPerform < Test::Unit::TestCase
                    :start_time => start_time - 5.minutes,
                    :end_time   => start_time + 5.minutes)
     
-    spans = Span.find(:all, :order => :start_time)
-    sittings = Sitting.find(:all, :order => :start_time)
+    spans = Did::Span.find(:all, :order => :start_time)
+    sittings = Did::Sitting.find(:all, :order => :start_time)
 
     assert_equal(1, sittings.length,                            "Should be one sitting")
     assert_equal(start_time, spans[0].start_time,               "Span should use sit's start time")
@@ -95,8 +95,8 @@ class TCSitPerform < Test::Unit::TestCase
                    :start_time => start_time + 25.minutes,
                    :end_time   => start_time + 35.minutes)
     
-    spans = Span.find(:all, :order => :start_time)
-    sittings = Sitting.find(:all, :order => :start_time)
+    spans = Did::Span.find(:all, :order => :start_time)
+    sittings = Did::Sitting.find(:all, :order => :start_time)
 
     assert_equal(1, sittings.length,                            "Should be one sitting")
     assert_equal(start_time + 25.minutes, spans[0].start_time,  "Span should use span's start time")
@@ -117,8 +117,8 @@ class TCSitPerform < Test::Unit::TestCase
                    :start_time => start_time + 8.minutes,
                    :end_time   => start_time + 18.minutes)
 
-    spans = Span.find(:all, :order => :start_time)
-    sittings = Sitting.find(:all, :order => :start_time)
+    spans = Did::Span.find(:all, :order => :start_time)
+    sittings = Did::Sitting.find(:all, :order => :start_time)
     
     assert_equal(2, sittings.length,                            "Should be two sittings")
     assert_equal(start_time + 15.minutes, sittings[1].start_time)
@@ -134,7 +134,7 @@ class TCSitPerform < Test::Unit::TestCase
     perform_action(:sit,
                    :start_time => start_time + 1.minute)
 
-    sittings = Sitting.find(:all, :order => :start_time)
+    sittings = Did::Sitting.find(:all, :order => :start_time)
     
     assert_equal(1, sittings.length,                            "Should be one sitting")
   end

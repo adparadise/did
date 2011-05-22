@@ -1,6 +1,0 @@
-
-development:
-  adapter: sqlite3
-  database: did_development
-  username: test
-  password: test

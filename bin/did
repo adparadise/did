@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
 
-$: << File.dirname(__FILE__) + "/../lib"
-require 'env'
-Env.setup_active_record
+DID_PROFILE = ENV['DID_PROFILE'] || 'default'
 
-require 'action'
+require 'did/env'
+Env.setup_active_record(DID_PROFILE)
 
-action = Action.parse(ARGV)
+require 'did/action'
+
+action = Did::Action.parse(ARGV)
 action.perform

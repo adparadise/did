@@ -5,18 +5,16 @@ require 'active_record'
 require 'pathname'
 require 'sqlite3'
 
-DID_PROFILE = ENV['DID_PROFILE'] || 'default'
-
 class Env
-  def self.setup_active_record(allow_create = true)
-    initialize_home(DID_PROFILE, allow_create)
-    database_path = database_path(DID_PROFILE)
+  def self.setup_active_record(profile_name, allow_create = true)
+    initialize_home(profile_name, allow_create)
+    database_path = database_path(profile_name)
     config = {"adapter" => 'sqlite3', "database" => database_path.to_s}
     ActiveRecord::Base.establish_connection(config)
   end
 
-  def self.setup_raw(allow_create = true)
-    initialize_home(DID_PROFILE, allow_create)
+  def self.setup_raw(profile_name, allow_create = true)
+    initialize_home(profile_name, allow_create)
   end
 
   def self.setup_development(environment_name)
@@ -24,18 +22,18 @@ class Env
     ActiveRecord::Base.establish_connection(config)
   end
 
-  def self.db(allow_create = false)
-    return nil if !allow_create && !database_path(DID_PROFILE).exist?
-    @@db ||= SQLite3::Database.new(database_path(DID_PROFILE).to_s)
+  def self.db(profile_name, allow_create = false)
+    return nil if !allow_create && !database_path(profile_name).exist?
+    @@db ||= SQLite3::Database.new(database_path(profile_name).to_s)
   end
 
   private
 
-  def self.initialize_home(profile, allow_create = true)
-    return if !allow_create && !database_path(profile).exist?
+  def self.initialize_home(profile_name, allow_create = true)
+    return if !allow_create && !database_path(profile_name).exist?
 
     did_home.mkpath
-    database_path = database_path(profile)
+    database_path = database_path(profile_name)
     database_path.dirname.mkpath
     if !database_path.exist?
       puts "initializing DID database: #{database_path}"
@@ -50,8 +48,8 @@ class Env
     (Pathname.new('~').expand_path + ".did").realdirpath
   end
 
-  def self.database_path(profile)
-    did_home + profile + "did.db"
+  def self.database_path(profile_name)
+    did_home + profile_name + "did.db"
   end
 
   def self.development_database_config(environment_name)

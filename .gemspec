@@ -13,4 +13,10 @@ EOT
   s.add_dependency('sqlite3')
   s.add_dependency('activerecord')
   s.executables = ['did', 'did_autocomplete']
+
+  db_files = Dir.glob("db/**/*").reject {|f| f=~/\.sq3$/}
+  bin_files = Dir.glob("bin/**/*")
+  lib_files = Dir.glob("lib/**/*")
+  tests_files = Dir.glob("tests/**/*")
+  s.files = db_files + lib_files + tests_files
 end
