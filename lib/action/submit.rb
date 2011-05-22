@@ -49,7 +49,7 @@ module Action
           :end_span_id => span.id
         }
 
-        # We are commandeering a sitting created by a 'sit' action.
+        # We are commandeering the last sitting created by a 'sit' action.
         params[:start_time] = @start_time if current_sitting.end_time.nil?
         current_sitting.update_attributes(params)
       end

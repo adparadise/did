@@ -2,8 +2,10 @@ source :rubygems
 
 gem "activerecord"
 gem "sqlite3"
-gem "standalone_migrations"
 
+group :development
+  gem "standalone_migrations"
+end
 
 group :test do
   gem "database_cleaner"

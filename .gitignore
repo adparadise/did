@@ -1,2 +1,4 @@
 db/config.yml
 db/*.sq3
+profile/
+*.gem
