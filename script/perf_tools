@@ -1,0 +1,6 @@
+#!/bin/bash
+
+results=profile/profile
+echo "writing to: ${results}"
+CPUPROFILE=${results} RUBYOPT="-r`gem which perftools | tail -1`" \
+ruby -I lib $*
