@@ -1,6 +1,10 @@
 #!/bin/bash
 
 results=profile/profile
-echo "writing to: ${results}"
+echo "  Writing perf tools results to: ${results}"
 CPUPROFILE=${results} RUBYOPT="-r`gem which perftools | tail -1`" \
 ruby -I lib $*
+
+echo "  Writing analysis to: ${results}.txt and ${results}.pdf"
+pprof.rb --text "${results}" > "${results}.txt"
+pprof.rb --pdf "${results}" > "${results}.pdf"
