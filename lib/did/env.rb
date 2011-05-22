@@ -5,8 +5,7 @@ require 'sqlite3'
 class Env
   def self.setup_active_record(profile_name, allow_create = true)
     initialize_home(profile_name, allow_create)
-    database_path = database_path(profile_name)
-    config = {"adapter" => 'sqlite3', "database" => database_path.to_s}
+    config = {"adapter" => 'sqlite3', "database" => database_path(profile_name).to_s}
     ActiveRecord::Base.establish_connection(config)
   end
 
@@ -20,21 +19,22 @@ class Env
   end
 
   def self.db(profile_name, allow_create = false)
-    return nil if !allow_create && !database_path(profile_name).exist?
-    @@db ||= SQLite3::Database.new(database_path(profile_name).to_s)
+    database_path = database_path(profile_name)
+    return nil if !allow_create && !database_path.exist?
+    @@db ||= SQLite3::Database.new(database_path.to_s)
   end
 
   private
 
   def self.initialize_home(profile_name, allow_create = true)
-    return if !allow_create && !database_path(profile_name).exist?
+    database_path = database_path(profile_name)
+    return if !allow_create && !database_path.exist?
 
     did_home.mkpath
-    database_path = database_path(profile_name)
     database_path.dirname.mkpath
     if !database_path.exist?
       puts "initializing DID database: #{database_path}"
-      db = db(allow_create)
+      db = db(profile_name, allow_create)
       File.readlines("db/schema.sql").each do |line|
         db.execute(line)
       end
