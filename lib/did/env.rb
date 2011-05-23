@@ -48,7 +48,7 @@ class Env
   end
 
   def did_home
-    (Pathname.new('~').expand_path + ".did").realdirpath
+    Pathname.new('~').expand_path + ".did"
   end
 
   def database_path

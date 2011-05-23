@@ -11,7 +11,7 @@ EOT
   s.email = "adparadise@gmail.com"
   s.homepage = "http://github.com/homnom"
   s.add_dependency('sqlite3')
-  s.add_dependency('activerecord')
+  s.add_dependency('activerecord', '~>3.0')
   s.executables = ['did', 'did_autocomplete']
 
   db_files = Dir.glob("db/**/*").reject {|f| f=~/\.sq3$/}
