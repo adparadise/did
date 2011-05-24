@@ -26,7 +26,7 @@ module Did
     def self.parse_submit(argv)
       submit = Submit.new
       submit.labels = argv
-      submit.start_time = 10.minutes.ago
+      submit.start_time = 2.hours.ago
       submit.end_time = Time.now
 
       submit
@@ -35,7 +35,7 @@ module Did
     def self.parse_report(argv)
       report = Report.new
       
-      report.context = :day
+      report.format = (argv[1] || "timeline").to_sym
       report.range = Date.today
 
       report
