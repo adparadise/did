@@ -33,6 +33,13 @@ module Did
           sitting_start = false
         end
 
+        prior_span = prior_sitting.end_span if prior_sitting
+        if prior_span && prior_span.tags == tags
+          prior_span.update_attributes(:end_time => @end_time)
+          prior_sitting.update_attributes(:end_time => @end_time)
+          return
+        end
+        
         span = Span.create(:tags => tags, 
                            :end_time => @end_time, :start_time => @start_time,
                            :sitting_start => sitting_start, :sitting_end => true)

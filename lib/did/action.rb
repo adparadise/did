@@ -5,7 +5,7 @@ require 'did/action/report'
 module Did
   module Action
     def self.parse(argv)
-      if argv == ["sit"]
+      if argv[0] == "sit!"
         parse_sit(argv)
       elsif argv[0] == "what?"
         parse_report(argv)

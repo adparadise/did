@@ -27,10 +27,10 @@ class TCSitPerform < Test::Unit::TestCase
 
   def test_prior_submit_too_old
     start_time = Time.local(2011,05,21, 10,00,00)
-    perform_action(:submit, :labels => [],
+    perform_action(:submit, :labels => ['one'],
                    :start_time => start_time, 
                    :end_time   => start_time + 10.minutes)
-    perform_action(:submit, :labels => [],
+    perform_action(:submit, :labels => ['two'],
                    :start_time => start_time + 40.minutes,
                    :end_time   => start_time + 50.minutes)
 
@@ -49,10 +49,10 @@ class TCSitPerform < Test::Unit::TestCase
 
   def test_prior_submit_recent
     start_time = Time.local(2011,05,21, 10,00,00)
-    perform_action(:submit, :labels => [],
+    perform_action(:submit, :labels => ['one'],
                    :start_time => start_time, 
                    :end_time   => start_time + 10.minutes)
-    perform_action(:submit, :labels => [],
+    perform_action(:submit, :labels => ['two'],
                    :start_time => start_time + 5.minutes,
                    :end_time   => start_time + 15.minutes)
 

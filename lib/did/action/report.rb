@@ -28,8 +28,6 @@ module Did
 
 
       def timeline_report(spans)
-        duration = spans[1].duration
-        duration_to_s(duration)
         spans.each do |span|
           sitting_char = "|"
           if span.entire_sitting?
@@ -65,7 +63,7 @@ module Did
         minute_seconds = (total_seconds - seconds) % 3600
         hour_seconds = total_seconds - seconds - minute_seconds
         
-        "%03d:%02d:%02d" %  [hour_seconds / 360, minute_seconds / 60, seconds]
+        "%03d:%02d:%02d" %  [hour_seconds / 3600, minute_seconds / 60, seconds]
       end
     end
   end
