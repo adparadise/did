@@ -46,4 +46,5 @@ PerfTools::CpuProfiler.start("profile/many_spans") do
 end
 end_time = Time.now
 
-puts "#{times.length} actions (#{WORD_COUNT} words, #{SPAN_COUNT_PER_SITTING}:1 span:sit) - #{end_time - start_time} #{(end_time - start_time) / times.length} per action"
+puts "#{times.length} actions (#{WORD_COUNT} words, #{SPAN_COUNT_PER_SITTING}:1 span:sit) - " + 
+  "#{end_time - start_time} #{(end_time - start_time) / times.length} per action"
