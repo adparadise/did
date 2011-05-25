@@ -26,7 +26,6 @@ module Did
         tags_report(Span.find_for_day(@range))
       end
 
-
       def timeline_report(spans)
         spans.each do |span|
           sitting_char = "|"

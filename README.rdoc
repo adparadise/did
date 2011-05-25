@@ -1,0 +1,52 @@
+= DID - timetracking for the non-clairvoyant
+
+Did version 0.2.0
+
+This package contains Did, a command-line utility for quickly
+recording what you last worked on. More than just a tool, Did is also
+a mindset: it brings your awareness to task switches, those notorious
+time sinks.
+
+== Installation
+
+=== Gem installation
+
+Download and install Did with the following
+
+    gem install did
+
+For bash autocompletion of tags, add the following to the end of your
+.bashrc file
+
+    complete -C `which did_autocomplete | tail -n 1` did
+
+== Usage
+
+Tell Did that you've started working.
+   
+    did sit!
+
+Then, when you find yourself changing tasks, tell Did what you were just doing.
+
+    did [tag 1] [tag 2] ...
+
+After a while, you can ask what you did today.
+
+    did what?
+
+Or ask how your time has broken down across your descriptions of tasks.
+
+    did what? tags
+
+
+== Credits
+
+Written by Andrew Paradise in 2011.
+
+
+== Warranty
+
+This software is provided "as is" and without any express or
+implied warranties, including, without limitation, the implied
+warranties of merchantibility and fitness for a particular
+purpose.
