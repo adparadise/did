@@ -1,5 +1,5 @@
-require 'did/env'
 require 'did/action'
+require 'did/storage'
 
 module Did
   VERSION = "0.2.01"

@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
-
-ALLOW_CREATE = true
+DID_PROFILE = ENV['DID_PROFILE'] || 'default'
+require 'did/storage/profile'
+Did::Storage::Profile.prepare(DID_PROFILE)
 
 require 'did'
 

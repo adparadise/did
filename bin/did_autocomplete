@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
-
-ALLOW_CREATE = false
+DID_PROFILE = ENV['DID_PROFILE'] || 'default'
+require 'did/storage/profile'
+profile = Did::Storage::Profile.prepare(DID_PROFILE, false)
+exit unless profile.prepared?
 
 require 'did'
 
-exit unless $env.database_file_exist?
 command, partial, prior = ARGV[0..2]
 tags = Did::Tag.find(:all, :conditions => ["label like ?", partial + "%"])
 tags.each do |tag|
