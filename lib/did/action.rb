@@ -36,7 +36,7 @@ module Did
       report = Report.new
       
       report.format = (argv[1] || "timeline").to_sym
-      report.range = Date.today
+      report.range = :all
 
       report
     end

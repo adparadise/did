@@ -19,11 +19,11 @@ module Did
       end
 
       def perform_timeline
-        timeline_report(Span.find_for_day(@range))
+        timeline_report(spans_for_range)
       end
 
       def perform_tags
-        tags_report(Span.find_for_day(@range))
+        tags_report(spans_for_range)
       end
 
       def timeline_report(spans)
@@ -53,6 +53,16 @@ module Did
         tag_totals.each do |tag_label, duration|
           puts "#{tag_label.ljust(max_length + 3)}  #{duration_to_s(duration)}"
         end
+      end
+
+      def spans_for_range
+        spans = nil
+        if @range == :all
+          spans = Span.all
+        else
+          spans = Span.find_for_day(@range)
+        end
+        spans
       end
 
       def duration_to_s(duration)
