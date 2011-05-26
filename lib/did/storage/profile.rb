@@ -2,6 +2,8 @@ require 'active_record'
 require 'pathname'
 require 'sqlite3'
 
+require 'did/storage/version'
+
 module Did
   module Storage
     class Profile
@@ -9,7 +11,7 @@ module Did
         profile = Profile.new(profile_name)
         return profile if !profile.prepared? && allow_create == false
 
-        profile.create if !profile.prepared?
+        profile.update
         profile.open
 
         profile
@@ -19,32 +21,26 @@ module Did
         @profile_name = profile_name
       end
 
+      def update
+        profile_home.mkpath
+        
+        while version_number < Version::MAX_VERSION_NUMBER
+          next_version = Version.get_version(version_number + 1)
+          next_version.update(profile_home)
+        end
+      end
+
       def open
         config = {"adapter" => 'sqlite3', "database" => database_path.to_s}
         ActiveRecord::Base.establish_connection(config)
       end
 
-      def create
-        did_home.mkpath
-        database_path.dirname.mkpath
-        if !database_path.exist?
-          puts "initializing DID database: #{database_path}"
-          db = SQLite3::Database.new(database_path.to_s)
-          File.readlines("db/schema.sql").each do |line|
-            db.execute(line)
-          end
-          db.close
-        end
-      end
-
       def prepared?
-        version != nil
+        version_number > 0
       end
 
-      def version
-        return nil if !did_home.exist? || !database_path.exist?
-        
-        return 1
+      def version_number
+        Version.version_number_of_profile(profile_home)
       end
 
       private

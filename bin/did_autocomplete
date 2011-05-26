@@ -2,12 +2,13 @@
 DID_PROFILE = ENV['DID_PROFILE'] || 'default'
 require 'did/storage/profile'
 profile = Did::Storage::Profile.prepare(DID_PROFILE, false)
-exit unless profile.prepared?
 
-require 'did'
-
-command, partial, prior = ARGV[0..2]
-tags = Did::Tag.find(:all, :conditions => ["label like ?", partial + "%"])
-tags.each do |tag|
-  puts tag.label
+if profile.prepared?
+  require 'did'
+  
+  command, partial, prior = ARGV[0..2]
+  tags = Did::Tag.find(:all, :conditions => ["label like ?", partial + "%"])
+  tags.each do |tag|
+    puts tag.label
+  end
 end
