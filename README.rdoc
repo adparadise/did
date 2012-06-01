@@ -7,6 +7,8 @@ recording what you last worked on. More than just a tool, Did is also
 a mindset: it brings your awareness to task switches, those notorious
 time sinks.
 
+NOTE: This project has been replaced by https://github.com/adparadise/did2 Same approach, faster and no dependencies :)
+
 == Installation
 
 === Gem installation
